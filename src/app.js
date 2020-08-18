@@ -40,7 +40,8 @@ app.put("/repositories/:id", (request, response) =>
 {
   const { id } = request.params;
   const idIndex = getIndexOfItem(id);
-  idIndex ?? response.status(400).end();
+
+  if (!idIndex) response.status(400).end();
 
   const { title, url, techs } = request.body;
   updateRepoUseIndex(idIndex, title, url, techs);
@@ -52,7 +53,8 @@ app.delete("/repositories/:id", (request, response) =>
 {
   const { id } = request.params;
   const idIndex = getIndexOfItem(id);
-  idIndex ?? response.status(400).end();
+
+  if (!idIndex) response.status(400).end();
 
   repositories.splice(idIndex, 1);
   return response.status(204).end();
@@ -62,7 +64,8 @@ app.post("/repositories/:id/like", (request, response) =>
 {
   const { id } = request.params;
   const idIndex = getIndexOfItem(id);
-  idIndex ?? response.status(400).end();
+
+  if (!idIndex) response.status(400);
 
   repositories[idIndex].likes++;
 
