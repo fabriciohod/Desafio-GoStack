@@ -54,7 +54,7 @@ app.delete("/repositories/:id", (request, response) =>
   const { id } = request.params;
   const idIndex = getIndexOfItem(id);
 
-  if (!idIndex) response.status(400).end();
+  if (idIndex === undefined) return response.status(400).end();
 
   repositories.splice(idIndex, 1);
   return response.status(204).end();
